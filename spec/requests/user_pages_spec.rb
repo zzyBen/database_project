@@ -172,10 +172,19 @@ describe "User pages" do
         it { expect(user.reload.email).to   eq new_email }
       end # with valid information
     
-    end # edit
     
-  end # User pages
+      describe "forbidden attributes" do
+        let(:params) do { user: { admin: true, password: user.password, password_confirmation: user.password } } end
+
+        
+        #before { patch user_path(user), params }
+        it { expect(user.reload).not_to be_admin }        
+      end # forbidden attributes
+    end # edit
+  
+    
+  end # signup
   
 
 
-end
+end # User pages
