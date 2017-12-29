@@ -5,7 +5,7 @@
       <h1>
         <%= gravatar_for @user %>
         <%= @user.name %>
-        <%= @user.email%>
+        <br /><%= @user.email%>
       </h1>
     </section>
   </aside>
@@ -19,3 +19,32 @@
     <% end %>
   </div>
 </div>
+
+  <% if !@user.bookings.empty? %>  
+   <% @bookings = @user.bookings %>
+      <table border="1" width="100%" class="seats">
+
+        <tr>
+          <th text-align="center">Floor</th>
+          <th text-align="center">Zone</th>
+          <th text-align="center">Window</th>
+          <th text-align="center">Charge</th>
+          <th text-align="center">Time Start</th>
+          <th text-align="center">Time End</th>
+          <th></th>
+        <tr>
+
+        <% @bookings.each do |booking| %>
+          <tr>
+            <td align="center"><%= booking.seat.table.floor%></td>
+            <td align="center"><%= booking.seat.table.zone%></td>
+            <td align="center"><%= booking.seat.table.with_window%></td>
+            <td align="center"><%= booking.seat.table.with_charge%></td>
+            <td align="center"><%= booking.timestart%></td>
+            <td align="center"><%= booking.timeend%></td>
+            <td><%= link_to "unbook", "/bookings/#{booking.id}/unbook_toprofile", method: 'patch' %></td>
+          <tr>
+        <% end %>
+
+      </table>
+  <% end %>

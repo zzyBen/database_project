@@ -1,0 +1,8 @@
+<%= form_for(@seat) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+  
+  <%= f.label :seat_number %>
+  <%= f.text_field :seat_number %>
+  
+  <%= f.submit "Submit", class: "btn btn-large btn-primary" %>
+<% end %>

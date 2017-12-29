@@ -4,7 +4,13 @@ Rails.application.routes.draw do
   
   resources :sessions,    only: [:new, :create, :destroy]
   
-  resources :microposts,  only: [:create, :destroy]
+  resources :microposts,  only: [:new, :create, :destroy]
+  
+  resources :tables
+    
+  resources :seats
+
+  resources :bookings
 
   #get 'static_pages/home'
   #match '/home',    to: 'static_pages#home',    via: 'get'
@@ -27,6 +33,15 @@ Rails.application.routes.draw do
   
   #get 'static_pages/contact'
   match '/contact', to: 'static_pages#contact', via: 'get'
+  
+  
+  match '/bookings/:id/book', to: 'bookings#book',   via: 'patch'
+  
+  match '/bookings/:id/unbook_totable', to: 'bookings#unbook_totable',   via: 'patch'
+  
+  match '/bookings/:id/unbook_toprofile', to: 'bookings#unbook_toprofile',   via: 'patch'
+  
+  match '/bookings',    to: 'bookings#check',via: 'patch'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

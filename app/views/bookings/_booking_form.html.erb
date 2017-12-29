@@ -1,0 +1,12 @@
+<%= form_for(@booking) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+  
+  <%= f.label :timestart %>
+  <%= f.select(:timestart, Booking.time_range) %>
+  
+  <%= f.label :timeend %>
+  <%= f.select(:timeend, Booking.time_range) %>
+  
+  
+  <%= f.submit "Submit", class: "btn btn-large btn-primary" %>
+<% end %>

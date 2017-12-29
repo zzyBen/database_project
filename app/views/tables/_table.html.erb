@@ -1,0 +1,15 @@
+<tr>
+  <td align="center"><%= link_to table.table_number, table %></td>
+  <td align="center"><%= table.floor %></td>
+  <td align="center"><%= table.zone %></td>
+  <td align="center"><%= table.with_window %></td>
+  <td align="center"><%= table.with_charge %></td>
+  <td align="center"><%= table.seats.count %></td>
+  <% if current_user.admin? %>
+    <td align="center">
+    <%= link_to "delete", table, method: :delete, data: { confirm: "You sure?" } %>
+    |
+    <%= link_to "edit", edit_table_path(table) %>
+    </td>
+  <% end %>
+</tr>

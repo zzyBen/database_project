@@ -1,0 +1,19 @@
+<% provide(:title, @seat.id) %>
+<div class="row">
+  <aside class="span4">
+    <section>
+      <h3>Floor: <%= @seat.floor %></h3>
+      <h3>Zone: <%= @seat.zone %></h3>
+      <h3>With window: <%= @seat.with_window %></h3>
+      <h3>With charge: <%= @seat.with_charge %></h3>
+      <% if current_user.admin? %>
+        <h3>
+          <%= link_to "delete", @seat, method: :delete, data: { confirm: "You sure?" } %>
+          |
+          <%= link_to "edit", edit_seat_path(@seat) %>
+        </h3>
+      <% end %>
+    </section>
+  </aside>
+
+</div>

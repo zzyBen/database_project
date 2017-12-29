@@ -1,0 +1,25 @@
+<% provide(:title, 'All Tables') %>
+<h1>All Tables</h1>
+
+
+<%= will_paginate %>
+
+
+<table border="1" width="100%" class="seats">
+
+  <tr>
+    <th text-align="center">Table Number</th>
+    <th text-align="center">Floor</th>
+    <th text-align="center">Zone</th>
+    <th text-align="center">Window</th>
+    <th text-align="center">Charge</th>
+    <th text-align="center">Seats</th>
+  <tr>
+
+    <%= render @tables %>
+
+</table>
+
+
+
+<%= will_paginate %>

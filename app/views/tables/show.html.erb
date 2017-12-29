@@ -1,0 +1,27 @@
+<% provide(:title, @table.table_number.to_s) %>
+<div class="row">
+  <aside class="span4">
+    <section>
+      <h3>Table Number: <%= @table.table_number %></h3>
+      <h3>Floor: <%= @table.floor %></h3>
+      <h3>Zone: <%= @table.zone %></h3>
+      <h3>With window: <%= @table.with_window %></h3>
+      <h3>With charge: <%= @table.with_charge %></h3>
+      <% if current_user.admin? %>
+        <h3>
+          <%= link_to "delete", @table, method: :delete, data: { confirm: "You sure?" } %>
+          |
+          <%= link_to "edit", edit_table_path(@table) %>
+        </h3>
+      <% end %>
+    </section>
+  </aside>
+  
+  <h3><%= link_to "Creat seat", new_seat_path(table_id: @table.id) %></h3>
+  
+  <% if !@seats.empty? %>  
+
+      <%= render @seats %>
+
+  <% end %>
+</div>

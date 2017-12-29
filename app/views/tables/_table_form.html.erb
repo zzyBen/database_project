@@ -1,0 +1,20 @@
+<%= form_for(@table) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+  
+  <%= f.label :table_number %>
+  <%= f.text_field :table_number %>
+
+  <%= f.label :floor %>
+  <%= f.select(:floor, Table.floor_range) %>
+
+  <%= f.label :zone %>
+  <%= f.select(:zone, Table.zone_range) %>
+  
+  <%= f.label :with_window %>
+  <%= f.select(:with_window, Table.with_window_range) %>
+  
+  <%= f.label :with_charge %>
+  <%= f.select(:with_charge, Table.with_charge_range) %>
+  
+  <%= f.submit "Submit", class: "btn btn-large btn-primary" %>
+<% end %>

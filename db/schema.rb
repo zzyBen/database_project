@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171225162404) do
+ActiveRecord::Schema.define(version: 20171228213756) do
+
+  create_table "bookings", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "timestart"
+    t.integer "timeend"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "seat_id"
+    t.index ["seat_id"], name: "index_bookings_on_seat_id"
+  end
 
   create_table "microposts", force: :cascade do |t|
     t.string "content"
@@ -18,6 +28,25 @@ ActiveRecord::Schema.define(version: 20171225162404) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id", "created_at"], name: "index_microposts_on_user_id_and_created_at"
+  end
+
+  create_table "seats", force: :cascade do |t|
+    t.integer "seat_number"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "table_id"
+    t.index ["table_id"], name: "index_seats_on_table_id"
+  end
+
+  create_table "tables", force: :cascade do |t|
+    t.integer "table_number"
+    t.integer "floor"
+    t.string "zone"
+    t.boolean "with_window"
+    t.boolean "with_charge"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["table_number"], name: "index_tables_on_table_number", unique: true
   end
 
   create_table "users", force: :cascade do |t|

@@ -1,0 +1,38 @@
+<%= provide(:title, 'Check Booking List') %>
+
+<h1>Check Booking List</h1>
+
+
+<div class="row">
+  <div class="span6 offset3">
+    <%= form_for(@booking) do |f| %>
+
+    
+      <%= f.label 'floor' %>
+      <%= f.collection_select(:floor, Table.where(user_id: nil), :floor, :floor) %>
+      
+      <%= f.label 'zone' %>
+      <%= f.collection_select(:zone, Table.where(user_id: nil), :zone, :zone) %>
+      
+      <%= f.label 'With Window' %>
+      <%= f.collection_select(:with_window, Table.where(user_id: nil), :with_window, :with_window) %>
+      
+      <%= f.label 'With Charge' %>
+      <%= f.collection_select(:with_charge, Table.where(user_id: nil), :with_charge, :with_charge) %>
+      
+      <%= f.label 'Time Start' %>
+      <%= f.collection_select(:timestart, Table.where(user_id: nil), :timestart, :timestart) %>
+      
+      <%= f.label 'Time End' %>
+      <%= f.collection_select(:timeend, Table.where(user_id: nil), :timeend, :timeend) %>
+      
+      <%= f.label 'Confirmation'%>
+      <%= f.select(:confirmation, true) %>
+      
+
+      
+      <%= f.submit "Check", class: "btn btn-large btn-primary" %>
+    <% end %>
+    
+  </div>
+</div>

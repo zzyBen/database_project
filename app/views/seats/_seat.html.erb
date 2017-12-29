@@ -1,0 +1,25 @@
+<ul>
+  <%= seat.seat_number%>
+
+  <% if current_user.admin? %>
+    <br />
+    <%= link_to "delete", seat_path(seat), method: :delete, data: { confirm: "You sure?" }  %>
+    |
+    <%= link_to "edit", edit_seat_path(seat) %>
+    |
+    <%= link_to "add booking", new_booking_path(seat_id: seat.id)%>
+    
+  <% end %>
+  
+  <% if !seat.bookings.empty? %>  
+    <table border="1" width="100%" class="seats">
+      <tr>
+        <th text-align="center">Time Start</th>
+        <th text-align="center">Time End</th>
+        <th text-align="center">Booking User</th>
+      <tr>
+      <% @bookings = seat.bookings %>
+      <%= render @bookings %>
+    </table>
+  <% end %>
+</ul>

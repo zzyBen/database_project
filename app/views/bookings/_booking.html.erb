@@ -1,0 +1,16 @@
+<tr>
+  <td align="center"><%= booking.timestart%></td>
+  <td align="center"><%= booking.timeend%></td>
+  <td align="center"><% if booking.user_id != nil %><%= User.where(id: booking.user_id).first.name%><% end %></td>
+  <% if current_user.admin? %>
+    <td align="center">
+    <%= link_to "delete", booking_path(booking), method: :delete, data: { confirm: "You sure?" }  %>
+    |
+    <%= link_to "edit", edit_booking_path(booking) %>
+    
+    <% if booking.user_id != nil %>
+      |<%= link_to "unbook", "/bookings/#{booking.id}/unbook_totable", method: :'patch' %>
+    <% end %>
+    </td>
+  <% end %>
+</tr>
