@@ -10,16 +10,40 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171228213756) do
+ActiveRecord::Schema.define(version: 20171229104025) do
 
   create_table "bookings", force: :cascade do |t|
     t.integer "user_id"
-    t.integer "timestart"
-    t.integer "timeend"
+    t.string "timestart"
+    t.string "timeend"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "seat_id"
+    t.integer "table_id"
     t.index ["seat_id"], name: "index_bookings_on_seat_id"
+    t.index ["table_id"], name: "index_bookings_on_table_id"
+  end
+
+  create_table "checks", force: :cascade do |t|
+    t.string "floor"
+    t.string "zone"
+    t.string "with_charge"
+    t.string "with_window"
+    t.string "timestart"
+    t.string "timeend"
+    t.boolean "confirmation"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.string "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "micropost_id"
+    t.integer "user_id"
+    t.index ["micropost_id"], name: "index_comments_on_micropost_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
   create_table "microposts", force: :cascade do |t|
@@ -40,10 +64,10 @@ ActiveRecord::Schema.define(version: 20171228213756) do
 
   create_table "tables", force: :cascade do |t|
     t.integer "table_number"
-    t.integer "floor"
+    t.string "floor"
     t.string "zone"
-    t.boolean "with_window"
-    t.boolean "with_charge"
+    t.string "with_window"
+    t.string "with_charge"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["table_number"], name: "index_tables_on_table_number", unique: true

@@ -1,6 +1,8 @@
 class Table < ApplicationRecord
 
   has_many :seats, dependent: :destroy
+  
+  has_many :bookings, :through => :seats
 
   validates :floor, presence: true
   
@@ -15,19 +17,19 @@ class Table < ApplicationRecord
   
   
   def Table.floor_range
-    [1, 2, 3]
+    ["1", "2", "3"]
   end
   
   def Table.zone_range
-    ["Ease", "West", "North", "South"]
+    ["East", "West", "North", "South"]
   end
   
   def Table.with_window_range
-    [true, false]
+    ["true", "false"]
   end
   
   def Table.with_charge_range
-    [true, false]
+    ["true", "false"]
   end
 
 

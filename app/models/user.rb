@@ -4,6 +4,8 @@ class User < ApplicationRecord
   
   has_many :bookings
   
+  has_many :comments, dependent: :destroy
+  
   before_save { email.downcase! }
   before_create :create_remember_token
   

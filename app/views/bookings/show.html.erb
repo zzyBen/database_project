@@ -1,15 +1,16 @@
-<% provide(:title, 'All Bookings') %>
-<h1>All Bookings</h1>
+<% provide(:title, 'Selected Bookings') %>
+<h1>Selected Bookings</h1>
 
 
 
-<%= will_paginate %>
+
 
 <table border="1" width="100%" class="seats">
 
   <tr>
     <th text-align="center">Table Number</th>
     <th text-align="center">Seat Number</th>
+    <th text-align="center">Floor</th>
     <th text-align="center">Floor</th>
     <th text-align="center">Zone</th>
     <th text-align="center">Window</th>
@@ -18,8 +19,18 @@
     <th text-align="center">Time End</th>
     <th></th>
   <tr>
+  
+  <div>count=<%= @number %>,class=<%= @number.class %><div>
+  <div>floor=<%= @para_floor %>,class=<%= @para_floor.class %><div>
+  <div>zone=<%= @para_zone %>,class=<%= @para_zone.class %><div>
+  <div>window=<%= @para_window %>,class=<%= @para_window.class %><div>
+  <div>charge=<%= @para_charge %>,class=<%= @para_charge.class %><div>
+  <div>start=<%= @para_start %>,class=<%= @para_start.class %><div>
+  <div>end=<%= @para_end %>,class=<%= @para_end.class %><div>
+  
 
-  <% @bookings.each do |booking| %>
+  <div>count=<%= @booking.count %>,class=<%= @booking.count.class %><div>
+  <% @booking.all.each do |booking| %>
     <tr>
       <td align="center"><%= booking.seat.table.table_number%></td>
       <td align="center"><%= booking.seat.seat_number%></td>
@@ -33,7 +44,8 @@
     <tr>
   <% end %>
 
+
 </table>
-<%= will_paginate %>
+
 
 

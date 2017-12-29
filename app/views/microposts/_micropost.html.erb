@@ -3,7 +3,35 @@
   <span class="timestamp">
     Posted <%= time_ago_in_words(micropost.created_at) %> ago.
   </span>
+  <span><%= link_to "add comment", "/comment/#{micropost.id}/new", method: :"get" %></span>
+
   <% if current_user?(@user) %>
     <%= link_to "delete", micropost, method: :delete, data: { confirm: "You sure?" } %>
+    
+  <% end %>
+  <% if micropost.comments.any? %>
+    
+    <table border="1" width="100%" class="seats">
+      <tr>
+        <th text-align="center">comment</th>
+        <th text-align="center">by</th>
+        <th text-align="center">time</th>
+        <th></th>
+      <tr>
+      <% @comments = micropost.comments %>
+      <% @comments.each do |comment| %>
+      <tr>
+        <td class="content"><%= comment.content %></td>
+        <td align="center"><%= User.where(id: comment.user_id).first.name%></td>
+        <td class="timestamp">
+          Posted <%= time_ago_in_words(comment.created_at) %> ago.
+        </td>
+        <% if current_user?(User.where(id: comment.user_id).first) %>
+          <%= link_to "delete", comment, method: :delete, data: { confirm: "You sure?" } %>
+        <% end %>
+      </tr>
+      <% end %>
+    </table>
+    
   <% end %>
 </li>

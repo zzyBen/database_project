@@ -2,39 +2,44 @@ class BookingsController < ApplicationController
 
 
   def show
-      build_para = booking_params
+      build_para = check_params
       
-      @booking = Booking.joins(:seat_id, :table_id).where(user_id: nil)
+      @booking = Booking.where(user_id: nil)
       
-      if(!build_para[:floor].empty?)
-        @booking = @booking.where(seat_number: {table_number: {floor: build_para[:floor]}})
-      end
+      #if(!build_para[:floor].empty?)
+        @booking = @booking.joins(:table).where("tables.floor=?", build_para[:floor])
+      #end
       
-      if(!build_para[:zone].empty?)
-        @booking = @booking.where(seat_number: {table_number: {zone: build_para[:zone]}})
-      end
+      #if(!build_para[:zone].empty?)
+        #@booking = @booking.joins(:table).where("tables.zone=?", build_para[:zone].to_s)
+      #end
       
-      if(!build_para[:with_window].empty?)
-        @booking = @booking.where(seat_number: {table_number: {with_window: build_para[:with_window]}})
-      end
+      #if(!build_para[:with_window]==nil)
+        @booking = @booking.joins(:table).where("tables.with_window=?", build_para[:with_window])
+      #end
       
-      if(!build_para[:with_charge].empty?)
-        @booking = @booking.where(seat_number: {table_number: {with_charge: build_para[:with_charge]}})
-      end
+      #if(!build_para[:with_charge]==nil)
+        @booking = @booking.joins(:table).where("tables.with_charge=?", build_para[:with_charge])
+      #end
       
-      if(!build_para[:timestart].empty?)
-        @booking = @booking.where(seat_number: {table_number: {timestart: build_para[:timestart]}})
-      end
+      #if(!build_para[:timestart].empty?)
+        @booking = @booking.where("timestart=?", build_para[:timestart])
+      #end
       
-      if(!build_para[:timeend].empty?)
-        @booking = @booking.where(seat_number: {table_number: {timeend: build_para[:timeend]}})
-      end
+      #if(!build_para[:timeend].empty?)
+        @booking = @booking.where("timeend=?", build_para[:timeend])
+      #end
+        @number = @booking.count
       
+      #@booking = @booking.all
+
+      @para_floor = build_para[:floor]
+      @para_zone = build_para[:zone]
+      @para_window = build_para[:with_window]
+      @para_charge = build_para[:with_charge]
+      @para_start = build_para[:timestart]
+      @para_end = build_para[:timeend]
       
-      @booking = @booking.paginate(page: params[:page])
-      render 'index'
-      return
-    
   end
 
 
@@ -56,6 +61,7 @@ class BookingsController < ApplicationController
 
     
     @booking = Seat.find(@@seat_id).bookings.build(build_para)
+    @booking.table = @booking.seat.table
     
     
     if build_para[:timeend].to_i - build_para[:timestart].to_i <= 0
@@ -105,32 +111,38 @@ class BookingsController < ApplicationController
   
   def book
     Booking.find(params[:id]).update_attribute(:user_id, current_user.id)
-    @bookings = Booking.where(user_id: nil).all
+    @bookings = Booking.where(user_id: nil).paginate(page: params[:page])
+    flash[:success] = "Booking success!"
     render 'index'
   end
   
   def unbook_totable
     Booking.find(params[:id]).update_attribute(:user_id, nil)
     @table = Booking.find(params[:id]).seat.table
-
+    flash[:success] = "Unbooking success!"
     redirect_to @table
   end
   
   def unbook_toprofile
     Booking.find(params[:id]).update_attribute(:user_id, nil)
     @user = current_user
+    flash[:success] = "Unbooking success!"
     redirect_to @user
   end
   
   def check
-    @booking = Booking.new
+    @booking = Check.new
   end
 
 ########### private ###########  
   private
   
     def booking_params                         # strong parameter
-      params.require(:booking).permit(:timestart, :timeend, :user_id, :floor, :zone, :with_window, :withcharge, :timestart, :timeend, :confirmation)
+      params.require(:booking).permit(:timestart, :timeend, :user_id)
+    end
+    
+    def check_params
+      params.require(:check)
     end
 
 

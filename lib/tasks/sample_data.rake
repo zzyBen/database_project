@@ -43,8 +43,8 @@ namespace :db do
     50.times do |n|
       floor = Table.floor_range[rand(0..2)]
       zone = Table.zone_range[rand(0..3)]
-      with_window = Table.with_window_range[0..1]
-      with_charge = Table.with_charge_range[0..1]
+      with_window = Table.with_window_range[rand(0..1)]
+      with_charge = Table.with_charge_range[rand(0..1)]
       table = Table.create!(table_number: n,
                    floor: floor,
                    zone: zone,
@@ -73,9 +73,10 @@ namespace :db do
     seats = Seat.all
     
     seats.each do |seat|
-      (Booking.time_range.last-Booking.time_range.first).times do |n|
-        seat.bookings.create!(timestart: n+Booking.time_range.first,
-                           timeend: n+Booking.time_range.first+1)
+      (Booking.time_range.last.to_i-Booking.time_range.first.to_i).times do |n|
+        seat.bookings.create!(timestart: (n+Booking.time_range.first.to_i).to_s,
+                              timeend: (n+Booking.time_range.first.to_i+1).to_s,
+                              table_id: seat.table_id)
       end
     end
   end # tast make_booking

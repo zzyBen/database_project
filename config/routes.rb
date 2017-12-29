@@ -11,6 +11,8 @@ Rails.application.routes.draw do
   resources :seats
 
   resources :bookings
+  
+  resources :comments
 
   #get 'static_pages/home'
   #match '/home',    to: 'static_pages#home',    via: 'get'
@@ -41,7 +43,12 @@ Rails.application.routes.draw do
   
   match '/bookings/:id/unbook_toprofile', to: 'bookings#unbook_toprofile',   via: 'patch'
   
-  match '/bookings',    to: 'bookings#check',via: 'patch'
+  match '/bookings',    to: 'bookings#check', via: 'patch'
+  
+  match '/checks',      to: 'bookings#show', via: 'post'
+  
+  
+  match '/comment/:id/new', to: 'comments#new',  via: 'get'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

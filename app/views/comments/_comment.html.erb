@@ -1,0 +1,8 @@
+<tr>
+  <td align="center"><%= comment.contend%></td>
+  <td align="center"><%= User.where(id: comment.user_id).first.name%></td>
+  <% if User.where(id: comment.user_id).first == current_user %>
+    <td align="center">
+    <%= link_to "delete", booking_path(booking), method: :delete, data: { confirm: "You sure?" }  %>
+  <% end %>
+</tr>

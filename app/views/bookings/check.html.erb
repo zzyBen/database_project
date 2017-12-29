@@ -8,30 +8,33 @@
     <%= form_for(@booking) do |f| %>
 
     
-      <%= f.label 'floor' %>
-      <%= f.collection_select(:floor, Table.where(user_id: nil), :floor, :floor) %>
+
+
+      <%= f.label :floor %>
+      <%= f.select(:floor, Table.floor_range) %>
+
+      <%= f.label :zone %>
+      <%= f.select(:zone, Table.zone_range) %>
       
-      <%= f.label 'zone' %>
-      <%= f.collection_select(:zone, Table.where(user_id: nil), :zone, :zone) %>
+      <%= f.label :with_window %>
+      <%= f.select(:with_window, Table.with_window_range) %>
       
-      <%= f.label 'With Window' %>
-      <%= f.collection_select(:with_window, Table.where(user_id: nil), :with_window, :with_window) %>
+      <%= f.label :with_charge %>
+      <%= f.select(:with_charge, Table.with_charge_range) %>
       
-      <%= f.label 'With Charge' %>
-      <%= f.collection_select(:with_charge, Table.where(user_id: nil), :with_charge, :with_charge) %>
+      <%= f.label :timestart %>
+      <%= f.select(:timestart, Booking.time_range) %>
       
-      <%= f.label 'Time Start' %>
-      <%= f.collection_select(:timestart, Table.where(user_id: nil), :timestart, :timestart) %>
-      
-      <%= f.label 'Time End' %>
-      <%= f.collection_select(:timeend, Table.where(user_id: nil), :timeend, :timeend) %>
+      <%= f.label :timeend %>
+      <%= f.select(:timeend, Booking.time_range) %>
       
       <%= f.label 'Confirmation'%>
-      <%= f.select(:confirmation, true) %>
+      <%= f.select(:confirmation, Array.new<<true) %>
       
 
       
       <%= f.submit "Check", class: "btn btn-large btn-primary" %>
+      
     <% end %>
     
   </div>
