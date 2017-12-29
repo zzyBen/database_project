@@ -20,16 +20,8 @@
     <th></th>
   <tr>
   
-  <div>count=<%= @number %>,class=<%= @number.class %><div>
-  <div>floor=<%= @para_floor %>,class=<%= @para_floor.class %><div>
-  <div>zone=<%= @para_zone %>,class=<%= @para_zone.class %><div>
-  <div>window=<%= @para_window %>,class=<%= @para_window.class %><div>
-  <div>charge=<%= @para_charge %>,class=<%= @para_charge.class %><div>
-  <div>start=<%= @para_start %>,class=<%= @para_start.class %><div>
-  <div>end=<%= @para_end %>,class=<%= @para_end.class %><div>
-  
 
-  <div>count=<%= @booking.count %>,class=<%= @booking.count.class %><div>
+
   <% @booking.all.each do |booking| %>
     <tr>
       <td align="center"><%= booking.seat.table.table_number%></td>

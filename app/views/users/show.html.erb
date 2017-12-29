@@ -12,7 +12,7 @@
 
 </div>
 
-  <% if !@user.bookings.empty? %>  
+  <% if !@user.bookings.empty? and @user==current_user%>  
    <% @bookings = @user.bookings %>
       <table border="1" width="100%" class="seats">
 
