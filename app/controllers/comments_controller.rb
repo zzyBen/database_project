@@ -23,7 +23,7 @@ class CommentsController < ApplicationController
   
   
   def destroy
-    user = Comment.find(params[:id]).user
+    user = Micropost.find(Comment.find(params[:id]).micropost_id).user
     Comment.find(params[:id]).destroy
     flash[:success] = "Comment destroyed."
     redirect_to user_path(user)

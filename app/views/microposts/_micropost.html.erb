@@ -27,7 +27,7 @@
           Posted <%= time_ago_in_words(comment.created_at) %> ago.
         </td>
         <% if current_user?(User.where(id: comment.user_id).first) %>
-          <%= link_to "delete", comment, method: :delete, data: { confirm: "You sure?" } %>
+          <td><%= link_to "delete", comment, method: :delete, data: { confirm: "You sure?" } %></td>
         <% end %>
       </tr>
       <% end %>
